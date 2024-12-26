@@ -112,7 +112,7 @@ const fetchMoviesAndSeries = async (query) => {
         card.addEventListener('click', () => {
             // Redirect based on media type
             if (isMovie) {
-                window.open(`https://embed.me/embed/movie/${tmdbId}`, '_blank');
+                window.open(`https://embed.su/embed/movie/${tmdbId}`, '_blank');
             } else if (isTVShow) {
                 window.location.href = `tv-series.html?id=${tmdbId}`;
             }
@@ -168,7 +168,7 @@ const displayPopularContent = async () => {
             </div>
         `;
         card.addEventListener('click', () => {
-            window.open(`https://embed.me/embed/movie/${tmdbId}`, '_blank');
+            window.open(`https://embed.su/embed/movie/${tmdbId}`, '_blank');
         });
         movieList.appendChild(card);
     });
