@@ -10,9 +10,34 @@
     
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
     <title>ZMovies</title>
+    
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-K239ZGHZ');
+    </script>
+    <!-- End Google Tag Manager -->
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K239ZGHZ"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
     <header>
         <video src="video/theboys.webm" autoplay muted></video>
         <nav>
@@ -59,100 +84,13 @@
             <div class="cards" id="movie-list"></div>
         </section>
     </header>
+    
     <script>
-        
-  const apiKey = "ef1a1941f096c9755627399fa267b35e";
-const movieList = document.getElementById('movie-list');
-const searchInput = document.getElementById('search_input');
+        const apiKey = "ef1a1941f096c9755627399fa267b35e";
+        const movieList = document.getElementById('movie-list');
+        const searchInput = document.getElementById('search_input');
 
-// Function to fetch popular movies
-const fetchPopularMovies = async () => {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results;
-};
-
-// Function to fetch popular TV shows
-const fetchPopularTVShows = async () => {
-    const url = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US&page=1`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results;
-};
-
-// Function to fetch data based on search query
-const fetchMoviesAndSeries = async (query) => {
-    const url = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${query}&language=en-US&page=1&include_adult=false`;
-    const response = await fetch(url);
-    const data = await response.json();
-    movieList.innerHTML = ""; // Clear previous results
-
-    data.results.forEach(item => {
-        let posterPath = item.poster_path ? `https://image.tmdb.org/t/p/w200${item.poster_path}` : 'img/no-poster.jpg'; // Fallback if no poster
-        let tmdbId = item.id;
-        let itemType = item.media_type;
-        let isMovie = itemType === 'movie';
-        let isTVShow = itemType === 'tv';
-
-        // Create a new card element
-        let card = document.createElement('div');
-        card.classList.add('card');
-        card.innerHTML = `
-            <img src="${posterPath}" alt="${item.title || item.name}" class="poster">
-            <div class="rest_card">
-                <img src="${posterPath}" alt="${item.title || item.name}">
-                <div class="cont">
-                    <h4>${item.title || item.name}</h4>
-                    <div class="sub">
-                        <p>${isMovie ? 'Movie' : 'TV Show'}, ${item.release_date || item.first_air_date}</p>
-                        <h3><span>IMDB</span><i class="bi bi-star-fill"></i> ${item.vote_average}</h3>
-                    </div>
-                </div>
-            </div>
-        `;
-        card.addEventListener('click', () => {
-            // Redirect based on media type
-            if (isMovie) {
-                window.open(`https://vidsrc.vip/embed/movie/${tmdbId}`, '_blank');
-            } else if (isTVShow) {
-                window.location.href = `tv-series.html?id=${tmdbId}`;
-            }
-        });
-
-        movieList.appendChild(card);
-    });
-};
-
-// Event listener for search input
-searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.trim();
-    if (query) {
-        fetchMoviesAndSeries(query);
-    } else {
-        movieList.innerHTML = ''; // Clear results when the search is empty
-    }
-});
-
-// Function to handle left and right chevron scroll
-const handleChevronClick = (direction) => {
-    const scrollAmount = direction === 'left' ? -200 : 200; // Adjust scroll amount based on direction
-    movieList.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth',
-    });
-};
-
-// Fetch and display popular movies and TV shows when the page loads
-const displayPopularContent = async () => {
-    const popularMovies = await fetchPopularMovies();
-    const popularTVShows = await fetchPopularTVShows();
-
-    movieList.innerHTML = ""; // Clear any existing content
-
-    // Append popular movies
-    popularMovies.forEach(item => {
-        let posterPath = item.poster_path ? `https://image.tmdb.org/t/p/w200${item.poster_path}` : 'img/no-poster.jpg'; // Fallback if no poster
+                let posterPath = item.poster_path ? `https://image.tmdb.org/t/p/w200${item.poster_path}` : 'img/no-poster.jpg'; // Fallback if no poster
         let tmdbId = item.id;
         let card = document.createElement('div');
         card.classList.add('card');
