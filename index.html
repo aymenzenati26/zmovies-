@@ -136,7 +136,7 @@ const fetchMoviesAndSeries = async (query) => {
         card.addEventListener('click', () => {
                     const url = `movie.html?tmdbId=${tmdbId}`;
                     window.location.href = url; // Redirect to the movie details page
-                });
+                
         movieList.appendChild(card);
     });
             } else if (isTVShow) {
