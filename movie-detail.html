@@ -16,20 +16,24 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         .container {
             margin-top: 50px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         iframe {
             width: 80%;
             height: 400px;
         }
+
         .content-container {
             text-align: center;
             margin: 20px 0;
         }
+
         #playbtn {
             padding: 10px 20px;
             margin: 10px;
@@ -38,6 +42,7 @@
             border: none;
             cursor: pointer;
         }
+
         #listbtn {
             padding: 10px 20px;
             margin: 10px;
@@ -46,18 +51,68 @@
             border: none;
             cursor: pointer;
         }
+
+        #episodes-list {
+            margin-top: 20px;
+            padding: 0;
+            list-style-type: none;
+            color: whitesmoke;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .episode-item {
+            margin: 10px;
+            text-align: center;
+            width: 200px;
+        }
+
+        .episode-item img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .episode-item a {
+            color: red;
+            text-decoration: none;
+        }
+
+        .episode-item a:hover {
+            text-decoration: underline;
+        }
+
+        .episode-item h4 {
+            margin: 5px 0;
+        }
+
+        .episode-item p {
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+
+        .episode-item .runtime {
+            font-size: 1rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-           <iframe id="movie-iframe" frameborder="0" allowfullscreen></iframe>
+        <iframe id="movie-iframe" frameborder="0" allowfullscreen></iframe>
         <div class="content-container">
             <h1 id="movie-title">Loading...</h1>
             <button id="playbtn"><i class="fa fa-play"></i> Play</button>
             <button id="listbtn"><i class="fa fa-plus"></i> My List</button>
         </div>
 
+        <div id="episodes-container">
+            <h2>Episodes</h2>
+            <ul id="episodes-list">
+                <!-- Episode list will be loaded dynamically -->
+            </ul>
+        </div>
     </div>
 
     <script>
@@ -72,9 +127,42 @@
         const movieIframeUrl = `https://vidsrc.vip/embed/tv/${tmdbId}/${seasonNumber}/${episodeNumber}`;
         iframe.src = movieIframeUrl;
 
-        // Optionally, update the title
+        // Update the page title for the specific episode
         const movieTitle = document.getElementById('movie-title');
-        movieTitle.textContent = `Season ${seasonNumber} Episode ${episodeNumber}`; // Set a default title or fetch from API
+        movieTitle.textContent = `Season ${seasonNumber} Episode ${episodeNumber}`; // You can also fetch the actual episode title from an API
+
+        // Fetch and display episodes of the season
+        const fetchSeasonEpisodes = async () => {
+            const apiKey = "ef1a1941f096c9755627399fa267b35e"; // Replace with your TMDb API key
+            const url = `https://api.themoviedb.org/3/tv/${tmdbId}/season/${seasonNumber}?api_key=${apiKey}&language=en-US`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const episodesList = document.getElementById('episodes-list');
+            episodesList.innerHTML = ''; // Clear the list before adding new episodes
+
+            data.episodes.forEach(episode => {
+                const episodeItem = document.createElement('li');
+                episodeItem.className = 'episode-item';
+
+                const posterUrl = episode.still_path ? `https://image.tmdb.org/t/p/w200${episode.still_path}` : 'https://via.placeholder.com/200x300?text=No+Poster';
+                const runtime = episode.runtime ? `${episode.runtime} mins` : 'N/A';
+
+                episodeItem.innerHTML = `
+                    <img src="${posterUrl}" alt="${episode.name} Poster">
+                    <h4>${episode.name}</h4>
+                    <p>Air Date: ${episode.air_date}</p>
+                    <p class="runtime">Play Time: ${runtime}</p>
+                    <a href="movie-detail.html?tmdbId=${tmdbId}&seasonNumber=${seasonNumber}&episodeNumber=${episode.episode_number}">
+                        View Episode
+                    </a>
+                `;
+                episodesList.appendChild(episodeItem);
+            });
+        };
+
+        // Call the function to fetch and display episodes
+        fetchSeasonEpisodes();
     </script>
 </body>
 
