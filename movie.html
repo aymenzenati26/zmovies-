@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <script src="https://kit.fontawesome.com/a02bd9801f.js" crossorigin="anonymous"></script>
+    <style>
+        /* Add your styles from your original detail page */
+        body {
+            background: black;
+            color: whitesmoke;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        iframe {
+            width: 80%;
+            height: 400px;
+        }
+        .content-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        #playbtn {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #listbtn {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: gray;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <iframe src="" frameborder="0" allowfullscreen></iframe>
+        <div class="content-container">
+            <h1 id="movie-title">Loading...</h1>
+            <button id="playbtn"><i class="fa fa-play"></i> Play</button>
+            <button id="listbtn"><i class="fa fa-plus"></i> My List</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the tmdbId from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tmdbId = urlParams.get('tmdbId');
+
+        if (tmdbId) {
+            // Update the iframe source
+            const iframe = document.querySelector('iframe');
+            iframe.src = `https://vidsrc.vip/embed/movie/${tmdbId}`;
+
+            // Optionally, fetch movie details and update title
+            fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=ef1a1941f096c9755627399fa267b35e&language=en-US`)
+                .then(response => response.json())
+                .then(data => {
+                    const movieTitle = document.getElementById('movie-title');
+                    movieTitle.textContent = data.title;
+                });
+        } else {
+            alert('No movie ID provided!');
+        }
+    </script>
+</body>
+
+</html>
