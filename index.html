@@ -136,7 +136,8 @@ const fetchMoviesAndSeries = async (query) => {
         card.addEventListener('click', () => {
             // Redirect based on media type
             if (isMovie) {
-                window.open(`https://vidsrc.vip/embed/movie/${tmdbId}`, '_blank');
+                window.location.href =
+                 `movie.html?tmdbId=${tmdbId}`;
             } else if (isTVShow) {
                 window.location.href = `tv-series.html?id=${tmdbId}`;
             }
