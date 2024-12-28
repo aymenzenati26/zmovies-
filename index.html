@@ -134,9 +134,11 @@ const fetchMoviesAndSeries = async (query) => {
             </div>
         `;
         card.addEventListener('click', () => {
-            // Redirect based on media type
-            if (isMovie) {
-                window.open(`https://vidsrc.vip/embed/movie/${tmdbId}`, '_blank');
+                    const url = `movie.html?tmdbId=${tmdbId}`;
+                    window.location.href = url; // Redirect to the movie details page
+                });
+        movieList.appendChild(card);
+    });
             } else if (isTVShow) {
                 window.location.href = `tv-series.html?id=${tmdbId}`;
             }
