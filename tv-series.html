@@ -123,12 +123,18 @@
                     <h4>${episode.name}</h4>
                     <p>Air Date: ${episode.air_date || "N/A"}</p>
                     <p>Runtime: ${episode.runtime || "N/A"} mins</p>
-                    <button class="btn-primary" onclick="window.open('https://vidsrc.vip/embed/tv/${tvShowId}/${seasonNumber}/${episode.episode_number}', '_blank')">
+                    <button class="btn-primary" onclick="openEpisodeInIframe('${tvShowId}', ${seasonNumber}, ${episode.episode_number})">
                         Watch Episode
                     </button>
                 `;
                 episodesList.appendChild(episodeDiv);
             });
+        };
+
+        // Open episode in movie-detail.html in iframe
+        const openEpisodeInIframe = (tmdbId, seasonNumber, episodeNumber) => {
+            const movieDetailUrl = `movie-detail.html?tmdbId=${tmdbId}&seasonNumber=${seasonNumber}&episodeNumber=${episodeNumber}`;
+            window.location.href = movieDetailUrl; // Redirect to movie-detail.html with parameters
         };
 
         // Back to seasons view
