@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <script src="https://kit.fontawesome.com/a02bd9801f.js" crossorigin="anonymous"></script>
+    <style>
+        /* Add your styles from your original detail page */
+        body {
+            background: black;
+            color: whitesmoke;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        iframe {
+            width: 80%;
+            height: 400px;
+        }
+        .content-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        #playbtn {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #listbtn {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: gray;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+           <iframe id="movie-iframe" frameborder="0" allowfullscreen></iframe>
+        <div class="content-container">
+            <h1 id="movie-title">Loading...</h1>
+            <button id="playbtn"><i class="fa fa-play"></i> Play</button>
+            <button id="listbtn"><i class="fa fa-plus"></i> My List</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const tmdbId = urlParams.get('tmdbId');
+        const seasonNumber = urlParams.get('seasonNumber');
+        const episodeNumber = urlParams.get('episodeNumber');
+
+        // Generate iframe URL and set it
+        const iframe = document.getElementById('movie-iframe');
+        const movieIframeUrl = `https://vidsrc.vip/embed/tv/${tmdbId}/${seasonNumber}/${episodeNumber}`;
+        iframe.src = movieIframeUrl;
+
+        // Optionally, update the title
+        const movieTitle = document.getElementById('movie-title');
+        movieTitle.textContent = `Season ${seasonNumber} Episode ${episodeNumber}`; // Set a default title or fetch from API
+    </script>
+</body>
+
+</html>
