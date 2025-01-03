@@ -29,7 +29,7 @@ header nav a {
 }
 
 header h1 {
-    color: #f44336;
+    color: red;
     font-size: 1.5rem;
     margin-left: 20px;
 }
@@ -66,7 +66,7 @@ main {
 
 #series-details h4 {
     font-size: 1.2rem;
-    color: #f44336;
+    color: red;
 }
 
 /* Seasons Section */
@@ -162,7 +162,7 @@ a{
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    color: #f44336;
+    color: red;
 }
 
 /* Responsive Design */
