@@ -84,7 +84,7 @@ main {
     padding: 10px;
     background-color: #1f1f1f;
     border: 1px solid #333;
-    border-radius: 5px;
+    border-radius: 25px;
     color: #fff;
     font-size: 1rem;
     cursor: pointer;
@@ -92,14 +92,14 @@ main {
 
 #season-dropdown:focus {
     outline: none;
-    border-color: #f44336;
+    border-color: white;
 }
 
 /* Episodes Section */
 .swiper-slide {
     background-color: #1f1f1f;
     border: 1px solid #333;
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 10px;
     width: 250px; /* Ensure width is fixed */
     height: 250px; /* Set height equal to width to create a square */
